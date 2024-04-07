@@ -4,8 +4,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 
 @SpringBootApplication
-class CompanymanagerApplication
+class CompanyManagerApplication
 
 fun main(args: Array<String>) {
-	runApplication<CompanymanagerApplication>(*args)
+	runApplication<CompanyManagerApplication>(*args)
 }

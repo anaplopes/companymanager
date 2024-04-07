@@ -3,6 +3,7 @@ package br.com.b2b.companymanager.services
 import br.com.b2b.companymanager.dto.CompanyIn
 import br.com.b2b.companymanager.dto.CompanyOut
 import br.com.b2b.companymanager.entities.CompanyEntity
+import br.com.b2b.companymanager.exception.NotFoundException
 import br.com.b2b.companymanager.factories.CompanyDTOMapper
 import br.com.b2b.companymanager.factories.CompanyEntityMapper
 import org.springframework.stereotype.Service
@@ -13,7 +14,8 @@ import java.util.stream.Collectors
 class CompanyService(
     private var companies: MutableList<CompanyEntity> = ArrayList(),
     private val companyEntityMapper: CompanyEntityMapper,
-    private val companyDTOMapper: CompanyDTOMapper
+    private val companyDTOMapper: CompanyDTOMapper,
+    private val notFoundMessage: String = "Company not found"
 ) {
 
     fun createCompany(company: CompanyIn): CompanyOut {
@@ -25,7 +27,7 @@ class CompanyService(
     fun readCompany(cnpj: String): CompanyOut {
         val getCompany = companies.stream().filter {
             company -> company.cnpj == cnpj
-        }.findFirst().get()
+        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
         return companyDTOMapper.map(getCompany)
     }
 

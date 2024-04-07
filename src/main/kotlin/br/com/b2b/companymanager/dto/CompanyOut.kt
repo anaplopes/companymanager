@@ -13,12 +13,12 @@ data class CompanyOut(
 data class PartnerOut (
     val name: String,
     val cpf: String,
-    val phone: Number
+    val phone: String
 )
 
 data class ResponsibleOut (
     val name: String,
-    val phone: Number,
+    val phone: String,
     val email: String? = null,
     val occupation: String
 )

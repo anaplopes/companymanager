@@ -16,12 +16,12 @@ data class CompanyEntity (
 data class PartnerEntity (
     val name: String,
     val cpf: String,
-    val phone: Number
+    val phone: String
 )
 
 data class ResponsibleEntity (
     val name: String,
-    val phone: Number,
+    val phone: String,
     val email: String? = null,
     val occupation: String
 )
