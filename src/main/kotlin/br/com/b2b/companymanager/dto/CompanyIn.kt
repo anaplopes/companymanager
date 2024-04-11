@@ -15,11 +15,11 @@ data class CompanyIn(
     @field:Size(min = 14, max = 14, message = "CPNJ must have 14 digits without dots, slashes and dashes")
     val cnpj: String,
     @field:Valid
-    val partner: PartnerIn,
+    val partner: List<PartnerIn>,
     @field:Valid
     val responsible: ResponsibleIn,
     @field:NotNull
-    val activeRf: Boolean,
+    val activeReceita: Boolean,
 )
 
 data class PartnerIn (

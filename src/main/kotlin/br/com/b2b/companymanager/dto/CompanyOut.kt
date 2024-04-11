@@ -2,12 +2,12 @@ package br.com.b2b.companymanager.dto
 
 
 data class CompanyOut(
-    val id: String,
+    val id: String? = null,
     val name:  String,
     val cnpj: String,
-    val partner: PartnerOut,
+    val partner: List<PartnerOut>,
     val responsible: ResponsibleOut,
-    val activeRf: Boolean,
+    val activeReceita: Boolean,
 )
 
 data class PartnerOut (

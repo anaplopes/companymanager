@@ -2,37 +2,36 @@ package br.com.b2b.companymanager.services
 
 import br.com.b2b.companymanager.dto.CompanyIn
 import br.com.b2b.companymanager.dto.CompanyOut
-import br.com.b2b.companymanager.entities.CompanyEntity
 import br.com.b2b.companymanager.exception.NotFoundException
 import br.com.b2b.companymanager.factories.CompanyDTOMapper
-import br.com.b2b.companymanager.factories.CompanyEntityMapper
+import br.com.b2b.companymanager.factories.CompanyModelMapper
+import br.com.b2b.companymanager.interfaces.ICompanyRepository
 import org.springframework.stereotype.Service
 import java.util.stream.Collectors
 
 
 @Service
 class CompanyService(
-    private var companies: MutableList<CompanyEntity> = ArrayList(),
-    private val companyEntityMapper: CompanyEntityMapper,
+    private val repository: ICompanyRepository,
+    private val companyModelMapper: CompanyModelMapper,
     private val companyDTOMapper: CompanyDTOMapper,
     private val notFoundMessage: String = "Company not found"
 ) {
 
     fun createCompany(company: CompanyIn): CompanyOut {
-        val entity = companyEntityMapper.map(company)
-        companies.add(entity)
-        return companyDTOMapper.map(entity)
+        val model = companyModelMapper.map(company)
+        repository.save(model)
+        return companyDTOMapper.map(model)
     }
 
-    fun readCompany(cnpj: String): CompanyOut {
-        val getCompany = companies.stream().filter {
-            company -> company.cnpj == cnpj
-        }.findFirst().orElseThrow{NotFoundException(notFoundMessage)}
+    fun readCompany(id: String): CompanyOut {
+        val getCompany = repository.findById(id)
+            .orElseThrow{NotFoundException(notFoundMessage)}
         return companyDTOMapper.map(getCompany)
     }
 
     fun listCompany(): List<CompanyOut> {
-        return companies.stream().map {
+        return repository.findAll().stream().map {
             company -> companyDTOMapper.map(company)
         }.collect(Collectors.toList())
     }

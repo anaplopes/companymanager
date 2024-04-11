@@ -5,6 +5,7 @@ import br.com.b2b.companymanager.dto.CompanyOut
 import br.com.b2b.companymanager.services.CompanyService
 import jakarta.validation.Valid
 import org.springframework.http.ResponseEntity
+import org.springframework.transaction.annotation.Transactional
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.PostMapping
@@ -21,6 +22,7 @@ class CompanyController(
 ) {
 
     @PostMapping
+    @Transactional
     fun create(
         @RequestBody @Valid company: CompanyIn,
         uriBuilder: UriComponentsBuilder
@@ -30,9 +32,9 @@ class CompanyController(
         return ResponseEntity.created(uri).body(result)
     }
 
-    @GetMapping("/{cnpj}")
-    fun read(@PathVariable cnpj: String): CompanyOut {
-        return service.readCompany(cnpj)
+    @GetMapping("/{id}")
+    fun read(@PathVariable id: String): CompanyOut {
+        return service.readCompany(id)
     }
 
     @GetMapping

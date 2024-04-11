@@ -1,28 +1,26 @@
 package br.com.b2b.companymanager.factories
 
-import br.com.b2b.companymanager.dto.CompanyOut
-import br.com.b2b.companymanager.dto.PartnerOut
-import br.com.b2b.companymanager.dto.ResponsibleOut
+import br.com.b2b.companymanager.dto.CompanyIn
 import br.com.b2b.companymanager.interfaces.IMapperObject
 import br.com.b2b.companymanager.models.CompanyModel
+import br.com.b2b.companymanager.models.PartnerModel
+import br.com.b2b.companymanager.models.ResponsibleModel
 import org.springframework.stereotype.Component
 
-
 @Component
-class CompanyDTOMapper: IMapperObject<CompanyModel, CompanyOut> {
-    override fun map(t: CompanyModel): CompanyOut {
-        return CompanyOut(
-            id = t.id,
+class CompanyModelMapper: IMapperObject<CompanyIn, CompanyModel> {
+    override fun map(t: CompanyIn): CompanyModel {
+        return CompanyModel(
             name = t.name,
             cnpj = t.cnpj,
             partner = t.partner.map { p ->
-                PartnerOut(
+                PartnerModel(
                     name = p.name,
                     cpf = p.cpf,
                     phone = p.phone
                 )
-            },
-            responsible = ResponsibleOut(
+            }.toMutableList(),
+            responsible = ResponsibleModel(
                 name = t.responsible.name,
                 phone = t.responsible.phone,
                 email = t.responsible.email,
@@ -31,4 +29,5 @@ class CompanyDTOMapper: IMapperObject<CompanyModel, CompanyOut> {
             activeReceita = t.activeReceita
         )
     }
+
 }
