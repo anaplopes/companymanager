@@ -8,6 +8,7 @@ import jakarta.persistence.OneToMany
 import jakarta.persistence.OneToOne
 import java.time.LocalDateTime
 import java.util.UUID
+import jakarta.persistence.CascadeType
 
 
 @Entity
@@ -19,11 +20,10 @@ data class CompanyModel(
     val name:  String,
     @Column(nullable = false, length = 14, unique = true)
     val cnpj: String,
-    @OneToMany(mappedBy = "company")
+    @OneToMany(mappedBy = "company", cascade = [CascadeType.ALL])
     var partner: List<PartnerModel> = ArrayList(),
-    @OneToOne(mappedBy = "company")
+    @OneToOne(mappedBy = "company", cascade = [CascadeType.ALL])
     var responsible: ResponsibleModel,
-    @Column(nullable = false)
     val activeReceita: Boolean,
     val createAt: LocalDateTime = LocalDateTime.now(),
 )

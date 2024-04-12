@@ -6,6 +6,7 @@ import jakarta.persistence.Table
 import jakarta.persistence.Column
 import jakarta.persistence.OneToOne
 import java.util.UUID
+import jakarta.persistence.JoinColumn
 
 
 @Entity
@@ -22,5 +23,6 @@ data class ResponsibleModel (
     @Column(nullable = false, length = 50)
     val occupation: String,
     @OneToOne
+    @JoinColumn(name = "company_id")
     var company: CompanyModel? = null
 )

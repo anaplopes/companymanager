@@ -6,6 +6,7 @@ import jakarta.persistence.Table
 import jakarta.persistence.Column
 import jakarta.persistence.ManyToOne
 import java.util.UUID
+import jakarta.persistence.JoinColumn
 
 
 @Entity
@@ -20,5 +21,6 @@ data class PartnerModel (
     @Column(nullable = false, length = 11)
     val phone: String,
     @ManyToOne
+    @JoinColumn(name = "company_id")
     var company: CompanyModel? = null
 )
