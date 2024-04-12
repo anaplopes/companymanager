@@ -21,6 +21,5 @@ data class PartnerModel (
     @Column(nullable = false, length = 11)
     val phone: String,
     @ManyToOne
-    @JoinColumn(name = "company_id")
     var company: CompanyModel? = null
 )

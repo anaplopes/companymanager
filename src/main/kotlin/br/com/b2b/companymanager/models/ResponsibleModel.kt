@@ -18,11 +18,9 @@ data class ResponsibleModel (
     val name: String,
     @Column(nullable = false, length = 11)
     val phone: String,
-    @Column(nullable = true)
     val email: String? = null,
     @Column(nullable = false, length = 50)
     val occupation: String,
     @OneToOne
-    @JoinColumn(name = "company_id")
     var company: CompanyModel? = null
 )
