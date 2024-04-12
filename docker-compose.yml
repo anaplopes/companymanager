@@ -25,29 +25,29 @@ services:
     networks:
       - default
 
-#  api:
-#    container_name: api
-#    hostname: api
-#    build:
-#      context: .
-#      dockerfile: Dockerfile
-#    ports:
-#      - '8080:8080'
-#    expose:
-#      - 8080
-#    env_file:
-#      - .env
-#    environment:
-#      DB_HOST: ${DB_HOST:-db}
-#      DB_PORT: ${DB_PORT:-5432}
-#      DB_USERNAME: ${DB_USERNAME:-pguser}
-#      DB_PASSWORD: ${DB_PASSWORD:-pgpwd}
-#      DB_NAME: ${DB_NAME:-company}
-#    restart: always
-#    networks:
-#      - default
-#    depends_on:
-#      - db
+  api:
+    container_name: api
+    hostname: api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - '8080:8080'
+    expose:
+      - 8080
+    env_file:
+      - .env
+    environment:
+      DB_HOST: ${DB_HOST:-db}
+      DB_PORT: ${DB_PORT:-5432}
+      DB_USERNAME: ${DB_USERNAME:-pguser}
+      DB_PASSWORD: ${DB_PASSWORD:-pgpwd}
+      DB_NAME: ${DB_NAME:-company_manager}
+    restart: always
+    networks:
+      - default
+    depends_on:
+      - db
 
 networks:
   default:
