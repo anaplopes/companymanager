@@ -24,21 +24,21 @@ class CompanyController(
     @PostMapping
     @Transactional
     fun create(
-        @RequestBody @Valid company: CompanyIn,
+        @Valid @RequestBody company: CompanyIn,
         uriBuilder: UriComponentsBuilder
     ): ResponseEntity<CompanyOut> {
-        val result = service.createCompany(company)
+        val result = this.service.createCompany(company)
         val uri = uriBuilder.path("/company/${result.id}").build().toUri()
         return ResponseEntity.created(uri).body(result)
     }
 
-    @GetMapping("/{id}")
-    fun read(@PathVariable id: String): CompanyOut {
-        return service.readCompany(id)
+    @GetMapping("/{cnpj}")
+    fun read(@PathVariable cnpj: String): CompanyOut {
+        return this.service.readCompany(cnpj)
     }
 
     @GetMapping
     fun list(): List<CompanyOut> {
-        return service.listCompany()
+        return this.service.listCompany()
     }
 }

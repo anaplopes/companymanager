@@ -28,7 +28,7 @@ class CompanyDTOMapper: IMapperObject<CompanyModel, CompanyOut> {
                 email = t.responsible.email,
                 occupation = t.responsible.occupation
             ),
-            activeReceita = t.activeReceita
+            activeRf = t.activeRf
         )
     }
 }

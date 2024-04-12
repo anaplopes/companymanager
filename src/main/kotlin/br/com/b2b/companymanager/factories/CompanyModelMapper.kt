@@ -10,24 +10,29 @@ import org.springframework.stereotype.Component
 @Component
 class CompanyModelMapper: IMapperObject<CompanyIn, CompanyModel> {
     override fun map(t: CompanyIn): CompanyModel {
+        val responsible = ResponsibleModel(
+            name = t.responsible.name,
+            phone = t.responsible.phone,
+            email = t.responsible.email,
+            occupation = t.responsible.occupation,
+            company = null
+        )
         return CompanyModel(
             name = t.name,
             cnpj = t.cnpj,
+            responsible = responsible,
+            activeRf = t.activeRf,
+        ).apply {
+            responsible.company = this
             partner = t.partner.map { p ->
                 PartnerModel(
                     name = p.name,
                     cpf = p.cpf,
-                    phone = p.phone
+                    phone = p.phone,
+                    company = this
                 )
-            }.toMutableList(),
-            responsible = ResponsibleModel(
-                name = t.responsible.name,
-                phone = t.responsible.phone,
-                email = t.responsible.email,
-                occupation = t.responsible.occupation
-            ),
-            activeReceita = t.activeReceita
-        )
+            }.toMutableList()
+        }
     }
 
 }

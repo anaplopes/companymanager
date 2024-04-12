@@ -7,7 +7,7 @@ data class CompanyOut(
     val cnpj: String,
     val partner: List<PartnerOut>,
     val responsible: ResponsibleOut,
-    val activeReceita: Boolean,
+    val activeRf: Boolean,
 )
 
 data class PartnerOut (

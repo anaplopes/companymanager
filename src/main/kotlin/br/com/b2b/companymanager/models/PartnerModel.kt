@@ -7,6 +7,7 @@ import jakarta.persistence.Column
 import jakarta.persistence.ManyToOne
 import java.util.UUID
 import jakarta.persistence.JoinColumn
+import jakarta.persistence.CascadeType
 
 
 @Entity
@@ -14,12 +15,17 @@ import jakarta.persistence.JoinColumn
 data class PartnerModel (
     @Id
     val id: String = UUID.randomUUID().toString(),
+
     @Column(nullable = false, length = 100)
     val name: String,
+
     @Column(nullable = false, length = 11)
     val cpf: String,
+
     @Column(nullable = false, length = 11)
     val phone: String,
-    @ManyToOne
-    var company: CompanyModel? = null
+
+    @ManyToOne(cascade = [CascadeType.ALL])
+    @JoinColumn(name = "company_id")
+    val company: CompanyModel? = null
 )
